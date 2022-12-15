@@ -1,3 +1,4 @@
+import { GameController } from './game/game-controller.js';
 
-const a = 'Hello';
-console.log(a);
+const game = new GameController();
+game.start();

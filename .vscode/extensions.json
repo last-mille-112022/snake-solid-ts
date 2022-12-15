@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "wayou.vscode-todo-highlight",
+    "wix.vscode-import-cost",
+    "usernamehw.errorlens",
+    "sonarsource.sonarlint-vscode",
+    "kisstkondoros.vscode-codemetrics",
+    "EditorConfig.EditorConfig"
+  ]
+}
