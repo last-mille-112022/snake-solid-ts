@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "jest --watchAll --coverage",
     "lint": "eslint . --ext .ts",
-    "ci:test": "jest --watchAll --coverage"
+    "ci:test": "jest --coverage"
   },
   "author": "Alex González",
   "license": "MIT",
