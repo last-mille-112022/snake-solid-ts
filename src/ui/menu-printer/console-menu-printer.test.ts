@@ -1,36 +1,35 @@
 import { ConsoleMenuPrinter } from './console-menu-printer';
-import { type MenuPrinter } from './menu-printer.model';
 
-describe('For console menu printer module', () => {
-  let options: string[];
-  let menuPrinter: MenuPrinter;
+jest.mock('node:readline/promises', () => ({
+  createInterface: () => ({ question: jest.fn().mockResolvedValue('1') }),
+}));
+describe('Given a Console Menu Printer class', () => {
+  const options = ['First test option', 'Second test option'];
+  const printer = new ConsoleMenuPrinter(options);
+  describe('When the user wants to print a menu with options', () => {
+    test('Then it should be printed in console the options with an index', () => {
+      const consoleMock = jest.spyOn(console, 'log');
+      let optionString = '';
+      options.forEach((question, index) => {
+        optionString += '\n' + (index + 1).toString() + '.' + question;
+      });
+      const expectedText = '\nSNAKE MENU OPTIONS\n' + optionString;
 
-  beforeEach(() => {
-    options = ['Start Game', 'End Game'];
-    menuPrinter = new ConsoleMenuPrinter(options);
+      printer.printMenuOptions();
+
+      expect(consoleMock).toHaveBeenCalledWith(expectedText);
+    });
   });
-  it('should print menu options', () => {
-    const menuPrinterSpy = jest.spyOn(menuPrinter, 'printMenuOptions');
-    menuPrinter.printMenuOptions();
-    expect(menuPrinterSpy).toHaveBeenCalled();
-  });
 
-  it('should get the user answer', async () => {
-    // const readlineObj = { ...readline };
+  describe('When the user selects an option', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
 
-    // const readlineSpy = jest
-    //   .spyOn(readlineObj, 'createInterface')
-    //   .mockImplementation({
-    //     question: async () => Promise.resolve('1'),
-    //   } as any);
+    test('Then the chosen option should be returned', async () => {
+      const result = await printer.readUserAnswer();
 
-    const readUserAnswerSpy = jest
-      .spyOn(menuPrinter, 'readUserAnswer')
-      .mockReturnValue(Promise.resolve(options[0]));
-    const answer = await menuPrinter.readUserAnswer();
-
-    // expect(readlineSpy).toHaveBeenCalled();
-    expect(readUserAnswerSpy).toHaveBeenCalled();
-    expect(answer).toEqual(options[0]);
+      expect(result).toBe(options[0]);
+    });
   });
 });

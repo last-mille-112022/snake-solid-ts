@@ -15,10 +15,9 @@ export class ConsoleMenuPrinter implements MenuPrinter {
   printMenuOptions(): void {
     let optionString = '';
     this.#options.forEach((question, index) => {
-      optionString += `
-${index + 1}. ${question} `;
+      optionString += '\n' + (index + 1).toString() + '.' + question;
     });
-    console.log(`\nSNAKE MENU OPTIONS\n ${optionString}`);
+    console.log('\nSNAKE MENU OPTIONS\n' + optionString);
   }
 
   async readUserAnswer(): Promise<string> {
