@@ -28,7 +28,6 @@ describe('Given a Console Menu Printer class', () => {
 
     test('Then the chosen option should be returned', async () => {
       const result = await printer.readUserAnswer();
-
       expect(result).toBe(options[0]);
     });
   });
