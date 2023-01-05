@@ -1,60 +1,53 @@
-import { ConsoleRenderEngine } from '../ui/console-render/console-render-engine';
 import { type Coordinates } from './../ui/render-engine';
+import { ItemRenderEngine } from './item-render-engine.js';
 
-export interface FoodEngine {
-  drawFood: (coordinates: Coordinates) => void;
-  getFoodPosition: () => Coordinates;
-  removeFood: () => void;
-  startGenerator: () => void;
-  generateRandomPositions: () => void;
-  setFoodDuration: (time: number) => void;
-}
-
-export class SnakeFood implements FoodEngine {
-  #tablero = new ConsoleRenderEngine();
-  #foodCoordinates: Coordinates = { x: 0, y: 0 };
-  #foodDuration = 1000;
+export class SnakeFood {
+  // #foodCoordinates: Coordinates = { x: 0, y: 0 };
+  // #foodDuration = 1000;
   #maxCells = 20;
 
+  #foodCoordinates: Coordinates;
+  #foodColor: string;
+  #generateTime: number;
+  #removeTime: number;
+  #itemRenderEngine: ItemRenderEngine;
+
   constructor() {
-    this.startGenerator();
+    this.#itemRenderEngine = new ItemRenderEngine();
+    this.#foodCoordinates = { x: 0, y: 0 };
+    this.#foodColor = 'red';
+    this.#generateTime = 1500;
+    this.#removeTime = 2000;
   }
 
-  drawFood(coordinates: Coordinates) {
-    this.#foodCoordinates = coordinates;
-    this.#tablero.drawElement({
-      getCoordinates: () => coordinates,
-      getColor: () => 'red',
-    });
-    this.#tablero.render();
-  }
-
-  getFoodPosition() {
-    return this.#foodCoordinates;
+  generateFood() {
+    setInterval(() => {
+      this.generateRandomPositions();
+      this.#itemRenderEngine.drawItem({
+        getCoordinates: () => this.#foodCoordinates,
+        getColor: () => this.#foodColor,
+      });
+    }, this.#generateTime);
   }
 
   removeFood() {
-    this.#tablero.drawElement({
-      getCoordinates: () => this.#foodCoordinates,
-      getColor: () => 'black',
-    });
-    this.generateRandomPositions();
-    this.drawFood(this.#foodCoordinates);
-    this.#tablero.render();
-  }
-
-  setFoodDuration(time: number) {
-    this.#foodDuration = time;
     setInterval(() => {
-      this.removeFood();
-    }, this.#foodDuration);
+      this.#itemRenderEngine.eraseItem();
+    }, this.#removeTime);
   }
 
-  startGenerator() {
-    this.generateRandomPositions();
-    this.drawFood(this.#foodCoordinates);
-    this.setFoodDuration(this.#foodDuration);
-  }
+  // setFoodDuration(time: number) {
+  //   this.#foodDuration = time;
+  //   setInterval(() => {
+  //     this.removeFood();
+  //   }, this.#foodDuration);
+  // }
+
+  // startGenerator() {
+  //   this.generateRandomPositions();
+  //   this.drawFood(this.#foodCoordinates);
+  //   this.setFoodDuration(this.#foodDuration);
+  // }
 
   generateRandomPositions() {
     this.#foodCoordinates = {
