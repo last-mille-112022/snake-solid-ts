@@ -5,7 +5,7 @@ jest.mock('node:readline/promises', () => ({
 }));
 describe('Given a Console Menu Printer class', () => {
   const options = ['First test option', 'Second test option'];
-  const printer = new ConsoleMenuPrinter(options);
+  const printer = new ConsoleMenuPrinter(options, 'SNAKE MENU OPTIONS');
   describe('When the user wants to print a menu with options', () => {
     test('Then it should be printed in console the options with an index', () => {
       const consoleMock = jest.spyOn(console, 'log');
