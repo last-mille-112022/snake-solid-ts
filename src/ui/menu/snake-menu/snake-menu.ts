@@ -8,24 +8,24 @@ class SnakeMenu implements Menu {
   constructor(items: MenuItem[], printer: MenuPrinter, name: string) {
     this.#items = items;
     this.#printer = printer;
-    printer.setOptions(this.getOptionsNames());
+    printer.setOptions(this.#getOptionsNames());
     printer.setMenuName(name);
   }
 
-  executeChosenOption(menuItem: MenuItem): void {
+  #executeChosenOption(menuItem: MenuItem): void {
     menuItem.execute();
   }
 
   async printOptions(): Promise<void> {
     const chosenOption = await this.#printer.readUserAnswer();
-    this.executeChosenOption(this.getItemByName(chosenOption));
+    this.#executeChosenOption(this.#getItemByName(chosenOption));
   }
 
-  getOptionsNames(): string[] {
+  #getOptionsNames(): string[] {
     return this.#items.map(item => item.getName());
   }
 
-  getItemByName(methodName: string) {
+  #getItemByName(methodName: string) {
     const optionSelected = this.#items.filter(
       item => item.getName() === methodName,
     );
