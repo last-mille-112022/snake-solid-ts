@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { ConsoleMenuPrinter } from '../../menu-printer/console-menu-printer';
 import SnakeMenu from '../../menu/snake-menu/snake-menu';
 
