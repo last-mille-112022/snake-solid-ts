@@ -22,5 +22,7 @@ module.exports = {
     '@typescript-eslint/object-curly-spacing': ['error', 'always'],
     'capitalized-comments': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
   },
 };
