@@ -3,13 +3,19 @@ import type { MenuPrinter } from './menu-printer.model';
 
 export class ConsoleMenuPrinter implements MenuPrinter {
   #options: string[];
+  #menuName: string;
 
-  constructor(options: string[]) {
-    this.#options = options;
+  constructor(options?: string[], menuName?: string) {
+    this.#options = options ? options : [];
+    this.#menuName = menuName ? menuName : '';
   }
 
   setOptions(options: string[]) {
     this.#options = options;
+  }
+
+  setMenuName(menuName: string) {
+    this.#menuName = menuName;
   }
 
   printMenuOptions(): void {
@@ -17,7 +23,7 @@ export class ConsoleMenuPrinter implements MenuPrinter {
     this.#options.forEach((question, index) => {
       optionString += '\n' + (index + 1).toString() + '.' + question;
     });
-    console.log('\nSNAKE MENU OPTIONS\n' + optionString);
+    console.log('\n' + this.#menuName + '\n' + optionString);
   }
 
   async readUserAnswer(): Promise<string> {
