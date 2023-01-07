@@ -1,14 +1,20 @@
 import { type Coordinates, type Drawable } from './../ui/render-engine';
-import { InitialDirection, SnakeColors, type SnakeBodyItemParameters } from './types/snake-types';
+import {
+  Directions,
+  SnakeColors,
+  type SnakeBodyItemOptions,
+} from './types/snake-types';
 
 export class SnakeBodyItem implements Drawable {
   #snakeBodyItemCoordinates: Coordinates;
 
-  constructor(
-    { initialDirection, initialPosition, lastSnakeItem }: SnakeBodyItemParameters,
-  ) {
+  constructor({
+    initialDirection,
+    initialPosition,
+    lastSnakeItem,
+  }: SnakeBodyItemOptions) {
     if (lastSnakeItem) {
-      this.#snakeBodyItemCoordinates = this.generateSnakeBody(
+      this.#snakeBodyItemCoordinates = this.generateSnakeBodyCoordinates(
         initialDirection,
         lastSnakeItem,
       );
@@ -22,20 +28,20 @@ export class SnakeBodyItem implements Drawable {
   }
 
   getColor(): SnakeColors {
-    return SnakeColors.white;
+    return SnakeColors.WHITE;
   }
 
-  private generateSnakeBody(
-    initialDirection: InitialDirection,
+  private generateSnakeBodyCoordinates(
+    initialDirection: Directions,
     lastSnakeItem: Drawable,
   ) {
     const { x, y } = lastSnakeItem.getCoordinates();
     switch (initialDirection) {
-      case InitialDirection.LEFT:
+      case Directions.LEFT:
         return { x: x + 1, y };
-      case InitialDirection.UP:
+      case Directions.UP:
         return { x, y: y + 1 };
-      case InitialDirection.DOWN:
+      case Directions.DOWN:
         return { x, y: y - 1 };
       default:
         return { x: x - 1, y };

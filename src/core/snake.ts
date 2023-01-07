@@ -1,7 +1,10 @@
 import { type Coordinates, type Drawable } from './../ui/render-engine';
 import { SnakeBodyItem } from './snake-body-item';
 import {
-  InitialDirection, InitialPositiokeys, initialPositionValues, type SnakeOptions,
+  Directions,
+  InitialPositiokeys,
+  initialPositionValues,
+  type SnakeOptions,
 } from './types/snake-types';
 
 export class Snake {
@@ -12,7 +15,7 @@ export class Snake {
   constructor({
     initialSize = 4,
     initialPosition = InitialPositiokeys.CENTER,
-    initialDirection = InitialDirection.RIGHT,
+    initialDirection = Directions.RIGHT,
   }: Partial<SnakeOptions>) {
     this.#snakeBody = [];
     this.#initialSize = initialSize;
@@ -34,7 +37,7 @@ export class Snake {
     return snakeBodyCoordinates;
   }
 
-  private generateSnake(initialDirection: InitialDirection) {
+  private generateSnake(initialDirection: Directions) {
     for (let i = 0; i < this.#initialSize; i++) {
       const snakeBodyItem = new SnakeBodyItem({
         initialDirection,

@@ -5,16 +5,16 @@ export type SnakeOptions = {
 
   initialPosition: InitialPositiokeys;
 
-  initialDirection: InitialDirection;
+  initialDirection: Directions;
 };
 
-export type SnakeBodyItemParameters = {
-  initialDirection: InitialDirection;
+export type SnakeBodyItemOptions = {
+  initialDirection: Directions;
   initialPosition: Coordinates;
   lastSnakeItem?: Drawable;
 };
 
-export enum InitialDirection {
+export enum Directions {
   UP = 'UP',
   DOWN = 'DOWN',
   LEFT = 'LEFT',
@@ -42,6 +42,5 @@ export const initialPositionValues: InitialPosition = {
 };
 
 export enum SnakeColors {
-  white = 'WHITE',
+  WHITE = 'WHITE',
 }
-
