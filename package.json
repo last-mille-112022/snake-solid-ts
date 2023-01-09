@@ -10,6 +10,7 @@
   "scripts": {
     "start": "tsc && node dist/index.js",
     "build": "tsc",
+    "tsc-w": "tsc --watch",
     "test": "jest --watchAll --coverage",
     "lint": "eslint . --ext .ts",
     "husky:lint": "npm run lint -- --fix",
