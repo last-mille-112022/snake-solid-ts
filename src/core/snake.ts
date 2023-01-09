@@ -4,13 +4,13 @@ import {
   Directions,
   InitialPositiokeys,
   initialPositionValues,
+  type MoveSnakeOptions,
   type SnakeOptions,
 } from './types/snake-types';
 
 export class Snake {
   #initialPosition: Coordinates;
   #snakeBody: Drawable[];
-  #initialSize: number;
 
   constructor({
     initialSize = 4,
@@ -18,9 +18,8 @@ export class Snake {
     initialDirection = Directions.RIGHT,
   }: Partial<SnakeOptions>) {
     this.#snakeBody = [];
-    this.#initialSize = initialSize;
     this.#initialPosition = initialPositionValues[initialPosition];
-    this.generateSnake(initialDirection);
+    this.generateSnake(initialDirection, initialSize);
   }
 
   public snakeLength() {
@@ -37,8 +36,15 @@ export class Snake {
     return snakeBodyCoordinates;
   }
 
-  private generateSnake(initialDirection: Directions) {
-    for (let i = 0; i < this.#initialSize; i++) {
+  public moveSnake({
+    hasChangedDirection,
+    controllerDirection,
+  }: MoveSnakeOptions) {
+    console.log(hasChangedDirection, controllerDirection);
+  }
+
+  private generateSnake(initialDirection: Directions, initialSize: number) {
+    for (let i = 0; i < initialSize; i++) {
       const snakeBodyItem = new SnakeBodyItem({
         initialDirection,
         initialPosition: this.#initialPosition,

@@ -44,3 +44,9 @@ export const initialPositionValues: InitialPosition = {
 export enum SnakeColors {
   WHITE = 'WHITE',
 }
+
+export type MoveSnakeOptions = {
+  hasChangedDirection: boolean;
+
+  controllerDirection: Directions;
+};
