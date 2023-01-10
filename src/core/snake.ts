@@ -1,26 +1,25 @@
 import { type Coordinates, type Drawable } from './../ui/render-engine';
+import { backwardDirection } from './constants/snake-constants';
 import { SnakeBodyItem } from './snake-body-item';
 import {
   Directions,
-  InitialPositiokeys,
-  initialPositionValues,
+  type MoveSnake,
   type SnakeOptions,
 } from './types/snake-types';
 
 export class Snake {
   #initialPosition: Coordinates;
   #snakeBody: Drawable[];
-  #initialSize: number;
+  #snakeDirection: Directions;
 
   constructor({
+    initialPosition,
     initialSize = 4,
-    initialPosition = InitialPositiokeys.CENTER,
     initialDirection = Directions.RIGHT,
-  }: Partial<SnakeOptions>) {
-    this.#snakeBody = [];
-    this.#initialSize = initialSize;
-    this.#initialPosition = initialPositionValues[initialPosition];
-    this.generateSnake(initialDirection);
+  }: SnakeOptions) {
+    this.#initialPosition = initialPosition;
+    this.#snakeDirection = initialDirection;
+    this.#snakeBody = this.generateSnakeBody(initialSize);
   }
 
   public snakeLength() {
@@ -37,14 +36,103 @@ export class Snake {
     return snakeBodyCoordinates;
   }
 
-  private generateSnake(initialDirection: Directions) {
-    for (let i = 0; i < this.#initialSize; i++) {
-      const snakeBodyItem = new SnakeBodyItem({
-        initialDirection,
-        initialPosition: this.#initialPosition,
-        lastSnakeItem: this.#snakeBody.at(-1),
-      });
-      this.#snakeBody.push(snakeBodyItem);
+  public changeDirection({ direction }: MoveSnake) {
+    if (backwardDirection[direction] === this.#snakeDirection) {
+      return;
     }
+
+    this.#snakeDirection = direction;
+  }
+
+  public moveSnake() {
+    this.#snakeBody.pop();
+
+    const newSnakeHead = new SnakeBodyItem({
+      position: this.generateSnakeItemCoordinates(
+        this.#snakeBody[0].getCoordinates(),
+      ),
+    });
+
+    this.#snakeBody.unshift(newSnakeHead);
+  }
+
+  private generateSnakeItemCoordinates(initialCoordinates: Coordinates) {
+    let newCoordinates: Coordinates;
+
+    switch (this.#snakeDirection) {
+      case Directions.LEFT:
+        newCoordinates = {
+          x: initialCoordinates.x - 1,
+          y: initialCoordinates.y,
+        };
+        break;
+      case Directions.UP:
+        newCoordinates = {
+          x: initialCoordinates.x,
+          y: initialCoordinates.y - 1,
+        };
+        break;
+      case Directions.DOWN:
+        newCoordinates = {
+          x: initialCoordinates.x,
+          y: initialCoordinates.y + 1,
+        };
+        break;
+      default:
+        newCoordinates = {
+          x: initialCoordinates.x + 1,
+          y: initialCoordinates.y,
+        };
+    }
+
+    return newCoordinates;
+  }
+
+  private generateInitialSnakeItemCoordinates(initialCoordinates: Coordinates) {
+    let newCoordinates: Coordinates;
+
+    switch (this.#snakeDirection) {
+      case Directions.LEFT:
+        newCoordinates = {
+          x: initialCoordinates.x + 1,
+          y: initialCoordinates.y,
+        };
+        break;
+      case Directions.UP:
+        newCoordinates = {
+          x: initialCoordinates.x,
+          y: initialCoordinates.y + 1,
+        };
+        break;
+      case Directions.DOWN:
+        newCoordinates = {
+          x: initialCoordinates.x,
+          y: initialCoordinates.y - 1,
+        };
+        break;
+      default:
+        newCoordinates = {
+          x: initialCoordinates.x - 1,
+          y: initialCoordinates.y,
+        };
+    }
+
+    return newCoordinates;
+  }
+
+  private generateSnakeBody(size: number) {
+    const body: Drawable[] = [];
+    body.push(new SnakeBodyItem({ position: this.#initialPosition }));
+
+    for (let i = 1; i < size; i++) {
+      const bodyItem = new SnakeBodyItem({
+        position: this.generateInitialSnakeItemCoordinates(
+          body[i - 1].getCoordinates(),
+        ),
+      });
+      body.push(bodyItem);
+    }
+
+    return body;
   }
 }
