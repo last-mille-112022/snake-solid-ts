@@ -1,4 +1,5 @@
 import { Snake } from './snake';
+import { Directions } from './types/snake-types';
 
 describe('Given a Snake class', () => {
   describe('When initialized with default values', () => {
@@ -29,6 +30,30 @@ describe('Given a Snake class', () => {
 
     it('can be initialized with a different size', () => {
       expect(biggerSnake.snakeLength()).toBe(5);
+    });
+  });
+
+  describe('Given a snake with a certain initial direction (LEFT)', () => {
+    const snake = new Snake({
+      initialDirection: Directions.LEFT,
+    });
+
+    describe('When the snake moves in a certain direction (UP)', () => {
+      const expectedSnakeBodyPosition = [
+        { x: 5, y: 4 },
+        { x: 5, y: 5 },
+        { x: 6, y: 5 },
+        { x: 7, y: 5 },
+      ];
+
+      snake.moveSnake({
+        hasChangedDirection: true,
+        controllerDirection: Directions.UP,
+      });
+
+      it('should move to that direction', () => {
+        expect(snake.snakeBodyPosition()).toBe(expectedSnakeBodyPosition);
+      });
     });
   });
 });
