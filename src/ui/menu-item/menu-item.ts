@@ -1,7 +1,7 @@
 import { type GameController } from '../../game/game-controller';
-import type MenuItem from './menu-item.model';
+import type MenuItemStructure from './menu-item.model';
 
-class StartGameMenuItem implements MenuItem {
+class MenuItem implements MenuItemStructure {
   constructor(
     private readonly name: string,
     private readonly gameController: GameController,
@@ -16,4 +16,4 @@ class StartGameMenuItem implements MenuItem {
   }
 }
 
-export default StartGameMenuItem;
+export default MenuItem;

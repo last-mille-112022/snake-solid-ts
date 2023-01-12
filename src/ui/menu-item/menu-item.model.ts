@@ -1,6 +1,6 @@
-interface MenuItem {
+interface MenuItemStructure {
   getName(): string;
   execute(): void;
 }
 
-export default MenuItem;
+export default MenuItemStructure;
