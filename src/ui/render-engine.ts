@@ -25,9 +25,12 @@ export type MoveHandler = (key: Key) => void;
 /**
  * Elements that implements this interface can be drawn into the UI
  */
-export interface Drawable {
-  getCoordinates(): Coordinates;
+export interface Drawable extends Collisionable {
   getColor(): string;
+}
+
+export interface Collisionable {
+  getCoordinates(): Coordinates;
 }
 
 export interface RenderScorable {
