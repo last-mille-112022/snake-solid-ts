@@ -1,10 +1,13 @@
+import { ScoreEngine } from '../score/score-engine';
 import { Food } from './food';
 
 describe('Given a Food class', () => {
   let food: Food;
+  let scoreEngine: ScoreEngine;
 
   beforeAll(() => {
-    food = new Food({ x: 20, y: 15 }, 2);
+    scoreEngine = new ScoreEngine();
+    food = new Food({ x: 20, y: 15 }, 2, scoreEngine);
   });
 
   // 1. Cuando instanciamos la clase, se tienen que generar unas coordenadas aleatorias.
@@ -28,6 +31,12 @@ describe('Given a Food class', () => {
     expect(food.checkLifespan()).toEqual(true);
   });
 
-  // 6. El método "onCollision" debe llamar a los métodos correspondientes: "growSnake" y "updateScore".
-  // test('the "onCollision" method should invoke the "growSnake' and "updateScore" methods, () => { });
+  // 6. El método "onCollision" debe aumentar la puntuación en 100 puntos.
+  test('the "onCollision" method should invoke the "updateScore" method and add 100 to the score', () => {
+    food.onCollision();
+    expect(scoreEngine.getScore()).toEqual(100);
+  });
+
+  // 7. El método "onCollision" debe hacer crecer la serpiente en 1 unidad.
+  // test('the "onCollision" method should invoke the "growSnake" method and make the snake grow by 1', () => {});
 });

@@ -1,13 +1,16 @@
-import type { Coordinates } from '../../ui/render-engine';
+import type { Coordinates, RenderScorable } from '../../ui/render-engine';
 import { Item } from './item';
 
 export class Food extends Item {
-  constructor(boardSize: Coordinates, lifespan: number) {
+  #scoreEngine: RenderScorable;
+
+  constructor(boardSize: Coordinates, lifespan: number, scoreEngine: RenderScorable) {
     super(boardSize, 'red', lifespan);
+    this.#scoreEngine = scoreEngine;
   }
 
   onCollision() {
     // growSnake(1);
-    // updateScore(100);
+    this.#scoreEngine.updateScore(100);
   }
 }
