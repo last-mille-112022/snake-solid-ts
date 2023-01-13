@@ -4,7 +4,7 @@ describe('Given a Food class', () => {
   let food: Food;
 
   beforeAll(() => {
-    food = new Food(20, 100, 100);
+    food = new Food({ x: 20, y: 15 }, 2);
   });
 
   // 1. Cuando instanciamos la clase, se tienen que generar unas coordenadas aleatorias.
@@ -19,13 +19,15 @@ describe('Given a Food class', () => {
   });
 
   // 4. El método "checkLifespan" debe devolver false siempre que la propiedad lifespan sea mayor que 0.
-  // test('while the property "lifespan" is bigger than 0, the "checkLifespan" method should return "false"', () => {});
+  test('while the property "lifespan" is bigger than 0, the "checkLifespan" method should return "false"', () => {
+    expect(food.checkLifespan()).toEqual(false);
+  });
 
   // 5. El método "checkLifespan" debe devolver true siempre que la propiedad lifespan sea menor o igual que 0.
-  // test('when the property "lifespan" is equal or smaller than 0, the "checkLifespan" method should return "true"', () => {});
-
-  // 6. El método "onCollision" debe devoler la string correspondiente del enum "CollisionResult".
-  test('the "onCollision" method should return the correct string from the "CollisionResult" enum', () => {
-    expect(food.onCollision()).toEqual('FOOD');
+  test('when the property "lifespan" is equal or smaller than 0, the "checkLifespan" method should return "true"', () => {
+    expect(food.checkLifespan()).toEqual(true);
   });
+
+  // 6. El método "onCollision" debe llamar a los métodos correspondientes: "growSnake" y "updateScore".
+  // test('the "onCollision" method should invoke the "growSnake' and "updateScore" methods, () => { });
 });
