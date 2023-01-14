@@ -1,5 +1,5 @@
-import { type Coordinates, type Drawable } from './../ui/render-engine';
-import { SnakeColors, type SnakeBodyItemOptions } from './types/snake-types';
+import { type Coordinates, type Drawable } from './../../ui/render-engine';
+import { SnakeColors, type SnakeBodyItemOptions } from './../types/snake-types';
 
 export class SnakeBodyItem implements Drawable {
   #snakeBodyItemCoordinates: Coordinates;

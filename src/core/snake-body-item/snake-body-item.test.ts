@@ -1,5 +1,5 @@
+import { SnakeColors } from '../types/snake-types';
 import { SnakeBodyItem } from './snake-body-item';
-import { SnakeColors } from './types/snake-types';
 
 describe('Given a SnakeBodyItem class', () => {
   describe('When initialized with certain position', () => {
