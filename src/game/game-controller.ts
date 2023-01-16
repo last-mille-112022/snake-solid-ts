@@ -1,9 +1,13 @@
-
-/**
- * This clase is responsable of control the game
- */
+import { Snake } from '../core/snake/snake.js';
+import { ConsoleRenderEngine } from './../ui/console-render/console-render-engine.js';
 export class GameController {
   start() {
-    // start the game
+    const tablero = new ConsoleRenderEngine();
+    const snake = new Snake({ initialPosition: { x: 5, y: 5 } });
+    tablero.render();
+
+    for (const item of snake.snakeBody) {
+      tablero.drawElement(item);
+    }
   }
 }

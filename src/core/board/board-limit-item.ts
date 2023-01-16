@@ -1,10 +1,10 @@
-import { type Coordinates, type Drawable } from './../../ui/render-engine';
+import { type Coordinates } from './../../ui/render-engine';
 import {
   DrawableItemColors,
   type DrawableItemOptions,
 } from './../types/snake-types';
 
-export class SnakeBodyItem implements Drawable {
+export class BoardLimitsItem {
   #snakeBodyItemCoordinates: Coordinates;
 
   constructor({ position }: DrawableItemOptions) {
@@ -16,6 +16,6 @@ export class SnakeBodyItem implements Drawable {
   }
 
   getColor(): DrawableItemColors {
-    return DrawableItemColors.WHITE;
+    return DrawableItemColors.RED;
   }
 }

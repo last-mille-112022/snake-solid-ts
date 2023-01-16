@@ -1,4 +1,4 @@
-import { SnakeColors } from '../types/snake-types';
+import { DrawableItemColors } from '../types/snake-types';
 import { SnakeBodyItem } from './snake-body-item';
 
 describe('Given a SnakeBodyItem class', () => {
@@ -6,7 +6,7 @@ describe('Given a SnakeBodyItem class', () => {
     const snakeBodyItem = new SnakeBodyItem({ position: { x: 5, y: 5 } });
 
     it('Then it should return a white color attribute and expected coordinates', () => {
-      const expectedColor = SnakeColors.WHITE;
+      const expectedColor = DrawableItemColors.WHITE;
       const expectedCoordinates = { x: 5, y: 5 };
 
       expect(snakeBodyItem.getColor()).toBe(expectedColor);
