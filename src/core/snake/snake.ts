@@ -128,16 +128,16 @@ export class Snake {
   private obtainMovementQualifiers(movement: SnakeMovement) {
     const movementQualifiers = {
       [SnakeMovement.initial]: {
-        [Directions.LEFT]: -1,
-        [Directions.UP]: -1,
-        [Directions.DOWN]: 1,
-        [Directions.RIGHT]: 1,
-      },
-      [SnakeMovement.random]: {
         [Directions.LEFT]: 1,
         [Directions.UP]: 1,
         [Directions.DOWN]: -1,
         [Directions.RIGHT]: -1,
+      },
+      [SnakeMovement.random]: {
+        [Directions.LEFT]: -1,
+        [Directions.UP]: -1,
+        [Directions.DOWN]: 1,
+        [Directions.RIGHT]: 1,
       },
     };
 
