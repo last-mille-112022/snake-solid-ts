@@ -1,4 +1,3 @@
-
 /**
  * This clase is responsable of control the game
  */
