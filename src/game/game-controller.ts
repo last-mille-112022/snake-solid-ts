@@ -3,6 +3,7 @@
  */
 export class GameController {
   start() {
-    // start the game
+    const board = new ConsoleRenderEngine();
+    board.render();
   }
 }
