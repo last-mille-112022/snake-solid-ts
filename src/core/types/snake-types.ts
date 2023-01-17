@@ -8,19 +8,20 @@ export type SnakeOptions = {
   initialDirection?: Directions;
 };
 
-export type SnakeBodyItemOptions = {
+export type DrawableItemOptions = {
   position: Coordinates;
 };
+
+export enum DrawableItemColors {
+  WHITE = 'WHITE',
+  RED = 'RED',
+}
 
 export enum Directions {
   UP = 'UP',
   DOWN = 'DOWN',
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
-}
-
-export enum SnakeColors {
-  WHITE = 'WHITE',
 }
 
 export type MoveSnake = {
