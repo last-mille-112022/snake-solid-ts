@@ -3,6 +3,6 @@
  */
 export class GameController {
   start() {
-    // start the game
+    // Start the game
   }
 }
