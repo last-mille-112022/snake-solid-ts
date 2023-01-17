@@ -1,5 +1,8 @@
 import { type Coordinates, type Drawable } from './../../ui/render-engine';
-import { backwardDirection } from './../constants/snake-constants';
+import {
+  backwardDirection,
+  SnakeMovement,
+} from './../constants/snake-constants';
 import { SnakeBodyItem } from './../snake-body-item/snake-body-item';
 import {
   Directions,
@@ -62,69 +65,42 @@ export class Snake {
     const newSnakeHead = new SnakeBodyItem({
       position: this.generateSnakeItemCoordinates(
         this.snakeBody[0].getCoordinates(),
+        SnakeMovement.random,
       ),
     });
 
     this.snakeBody.unshift(newSnakeHead);
   }
 
-  private generateSnakeItemCoordinates(initialCoordinates: Coordinates) {
+  private generateSnakeItemCoordinates(
+    initialCoordinates: Coordinates,
+    movement: SnakeMovement,
+  ) {
     let newCoordinates: Coordinates;
+    const movementQualifiers = this.obtainMovementQualifiers(movement);
 
     switch (this.#snakeDirection) {
       case Directions.LEFT:
         newCoordinates = {
-          x: initialCoordinates.x - 1,
+          x: initialCoordinates.x + movementQualifiers[Directions.LEFT],
           y: initialCoordinates.y,
         };
         break;
       case Directions.UP:
         newCoordinates = {
           x: initialCoordinates.x,
-          y: initialCoordinates.y - 1,
+          y: initialCoordinates.y + movementQualifiers[Directions.UP],
         };
         break;
       case Directions.DOWN:
         newCoordinates = {
           x: initialCoordinates.x,
-          y: initialCoordinates.y + 1,
+          y: initialCoordinates.y + movementQualifiers[Directions.DOWN],
         };
         break;
       default:
         newCoordinates = {
-          x: initialCoordinates.x + 1,
-          y: initialCoordinates.y,
-        };
-    }
-
-    return newCoordinates;
-  }
-
-  private generateInitialSnakeItemCoordinates(initialCoordinates: Coordinates) {
-    let newCoordinates: Coordinates;
-
-    switch (this.#snakeDirection) {
-      case Directions.LEFT:
-        newCoordinates = {
-          x: initialCoordinates.x + 1,
-          y: initialCoordinates.y,
-        };
-        break;
-      case Directions.UP:
-        newCoordinates = {
-          x: initialCoordinates.x,
-          y: initialCoordinates.y + 1,
-        };
-        break;
-      case Directions.DOWN:
-        newCoordinates = {
-          x: initialCoordinates.x,
-          y: initialCoordinates.y - 1,
-        };
-        break;
-      default:
-        newCoordinates = {
-          x: initialCoordinates.x - 1,
+          x: initialCoordinates.x + movementQualifiers[Directions.RIGHT],
           y: initialCoordinates.y,
         };
     }
@@ -138,13 +114,33 @@ export class Snake {
 
     for (let i = 1; i < size; i++) {
       const bodyItem = new SnakeBodyItem({
-        position: this.generateInitialSnakeItemCoordinates(
+        position: this.generateSnakeItemCoordinates(
           body[i - 1].getCoordinates(),
+          SnakeMovement.initial,
         ),
       });
       body.push(bodyItem);
     }
 
     return body;
+  }
+
+  private obtainMovementQualifiers(movement: SnakeMovement) {
+    const movementQualifiers = {
+      [SnakeMovement.initial]: {
+        [Directions.LEFT]: -1,
+        [Directions.UP]: -1,
+        [Directions.DOWN]: 1,
+        [Directions.RIGHT]: 1,
+      },
+      [SnakeMovement.random]: {
+        [Directions.LEFT]: 1,
+        [Directions.UP]: 1,
+        [Directions.DOWN]: -1,
+        [Directions.RIGHT]: -1,
+      },
+    };
+
+    return movementQualifiers[movement];
   }
 }
