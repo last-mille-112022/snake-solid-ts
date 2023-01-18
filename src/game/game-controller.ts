@@ -6,4 +6,8 @@ export class GameController {
   start() {
     // start the game
   }
+
+  end() {
+    // end the game
+  }
 }

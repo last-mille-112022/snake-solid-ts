@@ -1,10 +1,9 @@
-import { type GameController } from '../../game/game-controller';
 import type MenuItemStructure from './menu-item.model';
 
 class MenuItem implements MenuItemStructure {
   constructor(
     private readonly name: string,
-    private readonly gameController: GameController,
+    private readonly gameController: () => void,
   ) {}
 
   getName(): string {
@@ -12,7 +11,7 @@ class MenuItem implements MenuItemStructure {
   }
 
   execute(): void {
-    this.gameController.start();
+    this.gameController();
   }
 }
 
