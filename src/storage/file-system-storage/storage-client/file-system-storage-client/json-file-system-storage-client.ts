@@ -3,7 +3,6 @@ import {
   type GameReport,
   type ReportsFromStorage,
   type SavedGame,
-  type SavedGamesFromStorage,
   type StorageClient,
 } from '../../../storage.models';
 
@@ -14,7 +13,7 @@ export class JsonFileSystemStorageClient implements StorageClient {
     this.#filePath = './game-saved-data';
   }
 
-  async readLastGames(): Promise<string> {
+  async readLastGame(): Promise<string> {
     return this.#read(this.#filePath + '/games/games.json');
   }
 
@@ -22,20 +21,12 @@ export class JsonFileSystemStorageClient implements StorageClient {
     return this.#read(this.#filePath + '/statistics/statistics.json');
   }
 
-  async saveLastGames(data: SavedGame): Promise<void> {
+  async saveLastGame(data: SavedGame): Promise<void> {
     const path = this.#filePath + '/games/games.json';
-    const gamesFromStorage = await fs.readFile(path, {
+    await fs.writeFile(path, JSON.stringify({ game: data }, null), {
       encoding: 'utf-8',
-      flag: 'a+',
+      flag: 'w+',
     });
-    if (gamesFromStorage) {
-      const { games } = JSON.parse(gamesFromStorage) as SavedGamesFromStorage;
-      games.push(data);
-      await fs.writeFile(path, JSON.stringify({ games }, null), {
-        encoding: 'utf-8',
-        flag: 'w+',
-      });
-    }
   }
 
   async saveLastStatistics(data: GameReport): Promise<void> {

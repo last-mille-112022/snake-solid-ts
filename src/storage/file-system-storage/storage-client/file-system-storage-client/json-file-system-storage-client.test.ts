@@ -7,7 +7,7 @@ import {
   mockedSingleStatistic,
   mockedStatistics,
 } from '../../../../__mocks__/statistics.mocks';
-import { type SnakeSavedData } from '../../../storage.models';
+import { type GameReport } from '../../../storage.models';
 import { JsonFileSystemStorageClient } from './json-file-system-storage-client';
 
 jest.mock('fs/promises', () => ({
@@ -24,14 +24,10 @@ const testFsReadFile = (path: string) => {
   });
 };
 
-const testFsWriteFile = (
-  path: string,
-  data: SnakeSavedData[],
-  typeOfData: 'games' | 'reports',
-) => {
+const testFsWriteFile = (path: string, reports: GameReport[]) => {
   expect(mockedFs.writeFile).toHaveBeenCalledWith(
     path,
-    JSON.stringify({ [typeOfData]: data }),
+    JSON.stringify({ reports }),
     { encoding: 'utf-8', flag: 'w+' },
   );
 };
@@ -61,28 +57,26 @@ describe('Given a json file system storage client', () => {
 
   describe('when the storage reads last games', () => {
     it('it should read them from games folder', async () => {
-      await jsonFileSystemStorage.readLastGames();
+      await jsonFileSystemStorage.readLastGame();
       testFsReadFile(gamesPath);
     });
     it('and data exists it should return the last games', async () => {
       mockedFs.readFile.mockImplementation(async () =>
         Promise.resolve(JSON.stringify(mockedSavedGames)),
       );
-      const games = await jsonFileSystemStorage.readLastGames();
+      const games = await jsonFileSystemStorage.readLastGame();
       testFsReadFile(gamesPath);
       expect(JSON.parse(games)).toEqual(mockedSavedGames);
     });
   });
 
   it('when the storage saves last games it should save them in games folder', async () => {
-    mockedFs.readFile.mockImplementation(async () =>
-      Promise.resolve(JSON.stringify(mockedSavedGames)),
+    await jsonFileSystemStorage.saveLastGame(mockedSingleSavedGame);
+    expect(mockedFs.writeFile).toHaveBeenCalledWith(
+      gamesPath,
+      JSON.stringify({ game: mockedSingleSavedGame }),
+      { encoding: 'utf-8', flag: 'w+' },
     );
-    await jsonFileSystemStorage.saveLastGames(mockedSingleSavedGame);
-    testFsReadFile(gamesPath);
-    const { games } = mockedSavedGames;
-    games.push(mockedSingleSavedGame);
-    testFsWriteFile(gamesPath, games, 'games');
   });
 
   it('when the storage saves last statistics it should save them in statistics folder', async () => {
@@ -94,6 +88,6 @@ describe('Given a json file system storage client', () => {
     testFsReadFile(statisticsPath);
     const { reports } = mockedStatistics;
     reports.push(mockedSingleStatistic);
-    testFsWriteFile(statisticsPath, reports, 'reports');
+    testFsWriteFile(statisticsPath, reports);
   });
 });
