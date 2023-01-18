@@ -26,7 +26,7 @@ class JsonReportGenerator implements ReadableStorage {
       flag: 'a+',
     });
     if (reportsFromFile) {
-      const { reports } = JSON.parse(reportsFromFile) as ReportsFromStorage;
+      const { data: reports } = JSON.parse(reportsFromFile) as ReportsFromStorage;
       await this.#generateReport(reports);
       return this.destinationPath;
     }

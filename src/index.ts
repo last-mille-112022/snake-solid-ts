@@ -5,8 +5,11 @@ import SnakeMenu from './ui/menu/snake-menu/snake-menu.js';
 
 const game = new GameController();
 const printer = new ConsoleMenuPrinter();
-const startGameItem = new MenuItem('Empezar partida', game);
-const endGameItem = new MenuItem('Salir', game);
-const gameMenu = new SnakeMenu([startGameItem, endGameItem], printer, 'SNAKE MENU');
+const startGameItem = new MenuItem('Empezar partida', game.start);
+const endGameItem = new MenuItem('Salir', game.end);
+const gameMenu = new SnakeMenu(
+  [startGameItem, endGameItem],
+  printer,
+  'SNAKE MENU',
+);
 void gameMenu.printOptions();
-

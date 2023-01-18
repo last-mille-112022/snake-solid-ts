@@ -12,7 +12,7 @@ export type GameReport = {
   playedTime: number;
 };
 export type ReportsFromStorage = {
-  reports: GameReport[];
+  data: SnakeSavedData[];
 };
 
 export const noStatisticsFoundMessage = 'no statistics were found';
