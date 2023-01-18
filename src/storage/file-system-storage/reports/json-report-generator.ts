@@ -6,36 +6,24 @@ import {
   type ReportsFromStorage,
 } from '../../storage.models';
 
-class JsonReportGenerator implements ReadableStorage {
-  constructor(
-    private readonly originPath: string,
-    private readonly destinationPath: string,
-  ) {}
-
-  async readLastGames(): Promise<string> {
-    return 'in progress';
+class JsonReportGenerator {
+  destinationPath: string;
+  constructor(private readonly storage: ReadableStorage) {
+    this.destinationPath = './game-saved-data/reports/reports.json';
   }
 
-  async readLastStatistics(): Promise<string> {
-    return 'in progress';
-  }
-
-  async read(): Promise<string> {
-    const reportsFromFile = await fs.readFile(this.originPath, {
-      encoding: 'utf-8',
-      flag: 'a+',
-    });
+  async generateReport(): Promise<string> {
+    const reportsFromFile = await this.storage.readLastStatistics();
     if (reportsFromFile) {
-      const { data: reports } = JSON.parse(reportsFromFile) as ReportsFromStorage;
-      await this.#generateReport(reports);
+      const { reports } = JSON.parse(reportsFromFile) as ReportsFromStorage;
+      await this.#writeReport(reports);
       return this.destinationPath;
     }
 
     return noStatisticsFoundMessage;
   }
 
-  async #generateReport(reports: GameReport[]) {
-    // debugger;
+  async #writeReport(reports: GameReport[]) {
     await fs.writeFile(
       this.destinationPath,
       JSON.stringify({ reports }, null),
