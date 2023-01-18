@@ -2,7 +2,7 @@
   "name": "snake-solid-ts",
   "version": "1.0.0",
   "engines": {
-    "node": ">=16.x.x"
+    "node": ">=18.x.x"
   },
   "description": "Snake game for learning SOLID principles",
   "main": "dist/index.js",
@@ -10,6 +10,7 @@
   "scripts": {
     "start": "tsc && node dist/index.js",
     "build": "tsc",
+    "tsc-w": "tsc --watch",
     "test": "jest --watchAll --coverage",
     "lint": "eslint . --ext .ts",
     "husky:lint": "npm run lint -- --fix",
