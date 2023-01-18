@@ -14,6 +14,9 @@ export type GameReport = {
 export type ReportsFromStorage = {
   reports: GameReport[];
 };
+export type SavedGamesFromStorage = {
+  games: SavedGame[];
+};
 
 export const noStatisticsFoundMessage = 'no statistics were found';
 
@@ -22,22 +25,15 @@ export type SnakeSavedData = SavedGame | GameReport;
 export type SnakeGameItems = Record<string, Coordinates>;
 
 export interface WritableStorage<K extends SnakeSavedData> {
-  // save(data: K, path: string): Promise<void>;
   saveLastGames(data: K): Promise<void>;
   saveLastStatistics(data: K): Promise<void>;
 }
 
 export interface ReadableStorage {
-  // read(path: string): Promise<string>;
   readLastGames(): Promise<string>;
   readLastStatistics(): Promise<string>;
 }
 
 export interface StorageClient
   extends ReadableStorage,
-    WritableStorage<SnakeSavedData> {
-  // saveLastGames(data: SavedGame): Promise<void>;
-  // saveLastStatistics(data: GameReport): Promise<void>;
-  // readLastGames(): Promise<string>;
-  // readLastStatistics(): Promise<string>;
-}
+    WritableStorage<SnakeSavedData> {}
