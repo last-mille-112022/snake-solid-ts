@@ -1,23 +1,14 @@
 import type { Coordinates, Drawable } from '../../ui/render-engine';
 
 export abstract class Item implements Drawable {
-  #boardSize: Coordinates;
   #coordinates: Coordinates;
   #color: string;
-  #lifespan: number;
+  protected lifespan: number;
 
-  constructor(boardSize: Coordinates, color: string, lifespan: number) {
-    this.#boardSize = boardSize;
-    this.#coordinates = this.generateCoordinates();
+  constructor(position: Coordinates, color: string, lifespan: number) {
+    this.#coordinates = position;
     this.#color = color;
-    this.#lifespan = lifespan;
-  }
-
-  generateCoordinates(): Coordinates {
-    return {
-      x: Math.floor(Math.random() * this.#boardSize.x),
-      y: Math.floor(Math.random() * this.#boardSize.y),
-    };
+    this.lifespan = lifespan;
   }
 
   getCoordinates(): Coordinates {
@@ -29,8 +20,8 @@ export abstract class Item implements Drawable {
   }
 
   checkLifespan(): boolean {
-    this.#lifespan -= 1;
-    return this.#lifespan <= 0;
+    this.lifespan -= 1;
+    return this.lifespan <= 0;
   }
 
   abstract onCollision(): void;
