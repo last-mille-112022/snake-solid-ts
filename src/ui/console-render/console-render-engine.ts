@@ -1,5 +1,10 @@
 import blessed from 'blessed';
-import { type Drawable, type KeyHandler, type MoveHandler, type SnakeRenderEngine } from '../render-engine';
+import {
+  type Drawable,
+  type KeyHandler,
+  type MoveHandler,
+  type SnakeRenderEngine,
+} from '../render-engine';
 
 /**
  * Snake render engine into the CMD
@@ -12,7 +17,7 @@ export class ConsoleRenderEngine implements SnakeRenderEngine {
   constructor() {
     this.#screen = blessed.screen({
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      fastCSR: true,
+      smartCSR: true,
     });
 
     this.#gameContainer = blessed.box(this.#createGameBox());
@@ -53,16 +58,16 @@ export class ConsoleRenderEngine implements SnakeRenderEngine {
     this.#gameContainer = blessed.box(this.#createGameBox());
   }
 
-  drawElement({ getColor, getCoordinates }: Drawable) {
+  drawElement(item: Drawable) {
     blessed.box({
       parent: this.#gameContainer,
-      top: getCoordinates().y,
-      left: getCoordinates().x,
+      top: item.getCoordinates().y,
+      left: item.getCoordinates().x,
       width: 1,
       height: 1,
       style: {
-        fg: getColor(),
-        bg: getColor(),
+        fg: item.getColor(),
+        bg: item.getColor(),
       },
     });
   }

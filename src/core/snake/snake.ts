@@ -1,18 +1,11 @@
 import { type Coordinates, type Drawable } from './../../ui/render-engine';
-import {
-  backwardDirection,
-  SnakeMovement,
-} from './../constants/snake-constants';
-import { SnakeBodyItem } from './../snake-body-item/snake-body-item';
-import {
-  Directions,
-  type MoveSnake,
-  type SnakeOptions,
-} from './../types/snake-types';
+import { backwardDirection, SnakeMovement } from './../constants/snake-constants.js';
+import { SnakeBodyItem } from './../snake-body-item/snake-body-item.js';
+import { Directions, type MoveSnake, type SnakeOptions } from './../types/snake-types.js';
 
 export class Snake {
   #initialPosition: Coordinates;
-  snakeBody: Drawable[];
+  readonly snakeBody: Drawable[];
   #snakeDirection: Directions;
   #growingCounter: number;
 
@@ -72,10 +65,7 @@ export class Snake {
     this.snakeBody.unshift(newSnakeHead);
   }
 
-  private generateSnakeItemCoordinates(
-    initialCoordinates: Coordinates,
-    movement: SnakeMovement,
-  ) {
+  private generateSnakeItemCoordinates(initialCoordinates: Coordinates, movement: SnakeMovement) {
     let newCoordinates: Coordinates;
     const movementQualifiers = this.obtainMovementQualifiers(movement);
 

@@ -1,6 +1,6 @@
 import type { Snake } from '../../core/snake/snake';
 import type { Coordinates, RenderScorable } from '../../ui/render-engine';
-import { Item } from './item';
+import { Item } from './item.js';
 
 export class Food extends Item {
   #scoreEngine: RenderScorable;

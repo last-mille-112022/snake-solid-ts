@@ -17,6 +17,7 @@ class SnakeMenu implements Menu {
   }
 
   async printOptions(): Promise<void> {
+    this.#printer.printMenuOptions();
     const chosenOption = await this.#printer.readUserAnswer();
     this.#executeChosenOption(this.#getItemByName(chosenOption));
   }
@@ -26,20 +27,9 @@ class SnakeMenu implements Menu {
   }
 
   #getItemByName(methodName: string) {
-    const optionSelected = this.#items.filter(
-      item => item.getName() === methodName,
-    );
+    const optionSelected = this.#items.filter(item => item.getName() === methodName);
     return optionSelected[0];
   }
 }
-
-// const printer = new ConsoleMenuPrinter();
-// const submenu = new SubMenuMenuItem(printer, 'testing', [new StartGameMenuItem('start', new GameController())]);
-// const myMenu = new SnakeMenu([submenu, new StartGameMenuItem('start2', new GameController())], printer, 'probando menu');
-// const tryFucntion = async () => {
-//   await myMenu.printOptions();
-// };
-
-// void tryFucntion();
 
 export default SnakeMenu;

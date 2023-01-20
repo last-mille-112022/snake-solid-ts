@@ -13,8 +13,8 @@ export type DrawableItemOptions = {
 };
 
 export enum DrawableItemColors {
-  WHITE = 'WHITE',
-  RED = 'RED',
+  WHITE = 'white',
+  RED = 'red',
 }
 
 export enum Directions {

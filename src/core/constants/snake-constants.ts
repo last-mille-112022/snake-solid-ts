@@ -1,4 +1,4 @@
-import { Directions } from '../types/snake-types';
+import { Directions } from '../types/snake-types.js';
 
 export const backwardDirection = {
   [Directions.LEFT]: Directions.RIGHT,
