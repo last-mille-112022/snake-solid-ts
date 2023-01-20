@@ -35,6 +35,7 @@ export class ConsoleMenuPrinter implements MenuPrinter {
       answer = Number(await rl.question('\nPlease choose a valid option '));
     }
 
+    rl.close();
     return this.#options[answer - 1];
   }
 }

@@ -12,8 +12,8 @@ class SnakeMenu implements Menu {
     printer.setMenuName(name);
   }
 
-  #executeChosenOption(menuItem: MenuItem): void {
-    menuItem.execute();
+  #executeChosenOption(menuItem?: MenuItem): void {
+    menuItem?.execute();
   }
 
   async printOptions(): Promise<void> {
@@ -27,8 +27,7 @@ class SnakeMenu implements Menu {
   }
 
   #getItemByName(methodName: string) {
-    const optionSelected = this.#items.filter(item => item.getName() === methodName);
-    return optionSelected[0];
+    return this.#items.find(item => item.getName() === methodName);
   }
 }
 
