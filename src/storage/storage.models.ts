@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/indent */
+
 import { type Coordinates } from '../ui/render-engine';
 
 export type SavedGame = {
@@ -12,7 +12,7 @@ export type GameReport = {
   playedTime: number;
 };
 export type ReportsFromStorage = {
-  data: SnakeSavedData[];
+  reports: GameReport[];
 };
 export type SavedGamesFromStorage = {
   games: SavedGame[];
@@ -34,6 +34,4 @@ export interface ReadableStorage {
   readLastStatistics(): Promise<string>;
 }
 
-export interface StorageClient
-  extends ReadableStorage,
-    WritableStorage<SnakeSavedData> {}
+export interface StorageClient extends ReadableStorage, WritableStorage<SnakeSavedData> {}

@@ -1,7 +1,7 @@
 import { type ReadableStorage } from '../../storage/storage.models';
 
-interface ReportsGenerator {
-  generateReport(storage: ReadableStorage): Promise<void>;
+interface ReportsPrinter {
+  printReports(storage: ReadableStorage): void;
 }
 
-export default ReportsGenerator;
+export default ReportsPrinter;
