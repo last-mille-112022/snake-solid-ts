@@ -1,4 +1,4 @@
-import { Directions } from '../types/snake-types';
+import { Directions } from '../types/snake-types.js';
 
 export const backwardDirection = {
   [Directions.LEFT]: Directions.RIGHT,
@@ -6,3 +6,15 @@ export const backwardDirection = {
   [Directions.UP]: Directions.DOWN,
   [Directions.DOWN]: Directions.UP,
 };
+
+export enum SnakeMovement {
+  initial = 'INITIAL',
+  random = 'RANDOM',
+}
+
+export interface SnakeMovementQualifiers {
+  [Directions.LEFT]: number;
+  [Directions.UP]: number;
+  [Directions.DOWN]: number;
+  [Directions.RIGHT]: number;
+}

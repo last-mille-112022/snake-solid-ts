@@ -2,7 +2,7 @@
 import { ConsoleMenuPrinter } from './console-menu-printer';
 
 jest.mock('node:readline/promises', () => ({
-  createInterface: () => ({ question: jest.fn().mockResolvedValue('1') }),
+  createInterface: () => ({ question: jest.fn().mockResolvedValue('1'), close: jest.fn() }),
 }));
 describe('Given a Console Menu Printer class', () => {
   const options = ['First test option', 'Second test option'];

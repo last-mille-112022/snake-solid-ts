@@ -1,5 +1,5 @@
+import { Directions } from '../types/snake-types';
 import { Snake } from './snake';
-import { Directions } from './types/snake-types';
 
 const mockedInitialPosition = { x: 5, y: 5 };
 

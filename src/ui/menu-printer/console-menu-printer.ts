@@ -5,9 +5,9 @@ export class ConsoleMenuPrinter implements MenuPrinter {
   #options: string[];
   #menuName: string;
 
-  constructor(options?: string[], menuName?: string) {
-    this.#options = options ? options : [];
-    this.#menuName = menuName ? menuName : '';
+  constructor(options: string[] = [], menuName = '') {
+    this.#options = options;
+    this.#menuName = menuName;
   }
 
   setOptions(options: string[]) {
@@ -29,13 +29,13 @@ export class ConsoleMenuPrinter implements MenuPrinter {
   async readUserAnswer(): Promise<string> {
     const rl = readline.createInterface(process.stdin, process.stdout);
     let answer = 0;
-    this.printMenuOptions();
     answer = Number(await rl.question('\nChoose an option '));
     while (answer < 1 || answer > this.#options.length + 1 || isNaN(answer)) {
       // eslint-disable-next-line no-await-in-loop
       answer = Number(await rl.question('\nPlease choose a valid option '));
     }
 
+    rl.close();
     return this.#options[answer - 1];
   }
 }

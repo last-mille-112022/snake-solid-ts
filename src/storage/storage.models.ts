@@ -25,12 +25,12 @@ export type SnakeSavedData = SavedGame | GameReport;
 export type SnakeGameItems = Record<string, Coordinates>;
 
 export interface WritableStorage<K extends SnakeSavedData> {
-  saveLastGames(data: K): Promise<void>;
+  saveLastGame(data: K): Promise<void>;
   saveLastStatistics(data: K): Promise<void>;
 }
 
 export interface ReadableStorage {
-  readLastGames(): Promise<string>;
+  readLastGame(): Promise<string>;
   readLastStatistics(): Promise<string>;
 }
 
