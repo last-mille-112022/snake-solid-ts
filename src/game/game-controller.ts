@@ -67,4 +67,8 @@ export class GameController {
       this.#renderEngine.drawElement(item);
     });
   }
+
+  end() {
+    // end the game
+  }
 }
