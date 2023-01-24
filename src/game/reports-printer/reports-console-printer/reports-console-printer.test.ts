@@ -11,7 +11,7 @@ describe('Given a reports console printer', () => {
     const { date, playedTime, score } = mockedData.reports[0];
     const expectedMessage = `On the ${date} you played ${playedTime} seconds and scored ${score} points`;
     const mockedStorage: ReadableStorage = {
-      readLastGame: async () => new Promise(() => {}),
+      readLastGame: async () => new Promise(jest.fn()),
       readLastStatistics: jest.fn().mockResolvedValue(JSON.stringify(mockedData)),
     };
 

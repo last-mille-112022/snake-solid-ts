@@ -1,12 +1,6 @@
 import * as fs from 'fs/promises';
-import {
-  mockedSavedGames,
-  mockedSingleSavedGame,
-} from '../../../../__mocks__/games.mocks';
-import {
-  mockedSingleStatistic,
-  mockedStatistics,
-} from '../../../../__mocks__/statistics.mocks';
+import { mockedSavedGames, mockedSingleSavedGame } from '../../../../__mocks__/games.mocks';
+import { mockedSingleStatistic, mockedStatistics } from '../../../../__mocks__/statistics.mocks';
 import { type GameReport } from '../../../storage.models';
 import { JsonFileSystemStorageClient } from './json-file-system-storage-client';
 
@@ -25,11 +19,10 @@ const testFsReadFile = (path: string) => {
 };
 
 const testFsWriteFile = (path: string, reports: GameReport[]) => {
-  expect(mockedFs.writeFile).toHaveBeenCalledWith(
-    path,
-    JSON.stringify({ reports }),
-    { encoding: 'utf-8', flag: 'w+' },
-  );
+  expect(mockedFs.writeFile).toHaveBeenCalledWith(path, JSON.stringify({ reports }), {
+    encoding: 'utf-8',
+    flag: 'w+',
+  });
 };
 
 const statisticsPath = './game-saved-data/statistics/statistics.json';
@@ -54,7 +47,6 @@ describe('Given a json file system storage client', () => {
       expect(JSON.parse(statistics)).toEqual(mockedStatistics);
     });
   });
-
   describe('when the storage reads last games', () => {
     it('it should read them from games folder', async () => {
       await jsonFileSystemStorage.readLastGame();
@@ -64,7 +56,7 @@ describe('Given a json file system storage client', () => {
       mockedFs.readFile.mockImplementation(async () =>
         Promise.resolve(JSON.stringify(mockedSavedGames)),
       );
-      const games = await jsonFileSystemStorage.readLastGame();
+      const games: string = await jsonFileSystemStorage.readLastGame();
       testFsReadFile(gamesPath);
       expect(JSON.parse(games)).toEqual(mockedSavedGames);
     });
